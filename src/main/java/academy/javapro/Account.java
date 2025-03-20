@@ -10,14 +10,14 @@ import java.util.List;
 public abstract class Account implements AccountOperations {
     private final String accountNumber;
     private final String customerName;
-    private double balance;
+    double balance;
     private final List<String> transactionHistory = new ArrayList<>();
 
     /**
      * Constructor to initialize an account with provided details.
      *
-     * @param accountNumber The account number
-     * @param customerName The name of the account holder
+     * @param accountNumber  The account number
+     * @param customerName   The name of the account holder
      * @param initialBalance The initial balance
      */
     public Account(String accountNumber, String customerName, double initialBalance) {
@@ -81,7 +81,7 @@ public abstract class Account implements AccountOperations {
     @Override
     public void logTransaction(String type, double amount) {
         String record = String.format("%s | $%.2f | Balance: $%.2f",
-                                     type, amount, balance);
+                type, amount, balance);
         transactionHistory.add(record);
     }
 

@@ -5,14 +5,14 @@ package academy.javapro;
  * Features overdraft protection and transaction fees.
  */
 public class CheckingAccount extends Account {
-    private final double overdraftLimit;
+    private double overdraftLimit;
     private static final double TRANSACTION_FEE = 1.5; // Fee per withdrawal
 
     /**
      * Constructor for creating a new checking account.
      *
-     * @param accountNumber The account number
-     * @param customerName The name of the account holder
+     * @param accountNumber  The account number
+     * @param customerName   The name of the account holder
      * @param initialBalance The initial balance
      * @param overdraftLimit The maximum allowed overdraft
      */
@@ -27,7 +27,7 @@ public class CheckingAccount extends Account {
      * @return The overdraft limit
      */
     public double getOverdraftLimit() {
-        throw new UnsupportedOperationException("Method not implemented");
+        return overdraftLimit;
     }
 
     /**
@@ -36,7 +36,9 @@ public class CheckingAccount extends Account {
      * @param overdraftLimit The new overdraft limit
      */
     public void setOverdraftLimit(double overdraftLimit) {
-        throw new UnsupportedOperationException("Method not implemented");
+        this.overdraftLimit = overdraftLimit;
+        System.out.println("OverDraft limit updated to $" + overdraftLimit);
+
     }
 
     /**
@@ -45,11 +47,22 @@ public class CheckingAccount extends Account {
      */
     @Override
     public void withdraw(double amount) {
-        throw new UnsupportedOperationException("Method not implemented");
+        if (balance + overdraftLimit >= amount && amount > 0) {
+            balance -= amount + TRANSACTION_FEE;
+            logTransaction("WITHDRAWAL", amount);
+            logTransaction("FEE", TRANSACTION_FEE);
+        }
+        System.out.println("Withdrew $" + amount + " from checkings account");
+        System.out.println("Transaction fee: $" + TRANSACTION_FEE);
+        if (amount > balance && amount < balance + overdraftLimit) {
+            System.out.println("Account is in overdraft. Current Balance: $ " + balance);
+        }
+
     }
 
     /**
-     * Overrides the displayInfo method to include checking account-specific information.
+     * Overrides the displayInfo method to include checking account-specific
+     * information.
      */
     @Override
     public void displayInfo() {
